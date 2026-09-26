@@ -34,6 +34,12 @@ Before flashing, keep a stock recovery image and, if possible, back up the devic
 
 **Do not flash this on EC220-F5 v2, EC220-G5, Archer C50, or any other model/revision.** Other V1 BOM/flash variants have not been tested.
 
+### Photographs of the tested unit
+
+| Device label (unit-specific data redacted) | Main board and PCB marking |
+|---|---|
+| [![TP-Link EC220-F5 v1 device label](docs/images/ec220-f5-v1-label-redacted.png)](docs/images/ec220-f5-v1-label-redacted.png) | [![TP-Link EC220-F5 v1 main board](docs/images/ec220-f5-v1-pcb.jpg)](docs/images/ec220-f5-v1-pcb.jpg) |
+
 ## Release files
 
 ### Initial installation / recovery
@@ -99,6 +105,31 @@ A log line similar to the following is expected for the 5 GHz radio and is not b
 ```text
 mediatek/mt7663pr2h.bin not found, switching to mediatek/mt7663pr2h_rebb.bin
 ```
+
+## Running-system screenshots
+
+These screenshots were captured on the same hardware unit after installing OpenWrt 25.12.5. Unit-specific network details are redacted.
+
+| System information | Both Wi-Fi bands |
+|---|---|
+| [![LuCI: device model, OpenWrt version and system status](docs/images/luci-overview.png)](docs/images/luci-overview.png) | [![LuCI: 2.4 and 5 GHz radios](docs/images/luci-wireless.png)](docs/images/luci-wireless.png) |
+
+<details>
+<summary>Additional screenshots: interfaces, Wi-Fi graph and channel analysis</summary>
+
+### LAN and WAN
+
+[![LuCI: network interfaces](docs/images/luci-interfaces.png)](docs/images/luci-interfaces.png)
+
+### Wi-Fi graph
+
+[![LuCI: Wi-Fi graph](docs/images/luci-wireless-graph.png)](docs/images/luci-wireless-graph.png)
+
+### 5 GHz channel analysis
+
+[![LuCI: channel analysis](docs/images/luci-channel-analysis.png)](docs/images/luci-channel-analysis.png)
+
+</details>
 
 ## Important limitations
 

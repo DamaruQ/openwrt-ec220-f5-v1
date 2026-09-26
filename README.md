@@ -34,6 +34,12 @@
 
 **Не шить в EC220-F5 v2, EC220-G5, Archer C50 и другие модели/ревизии.** Другие варианты комплектующих внутри V1 отдельно не проверялись.
 
+### Фото проверенного экземпляра
+
+| Наклейка устройства (индивидуальные данные скрыты) | Плата и маркировка PCB |
+|---|---|
+| [![Наклейка TP-Link EC220-F5 v1](docs/images/ec220-f5-v1-label-redacted.png)](docs/images/ec220-f5-v1-label-redacted.png) | [![Плата TP-Link EC220-F5 v1](docs/images/ec220-f5-v1-pcb.jpg)](docs/images/ec220-f5-v1-pcb.jpg) |
+
 ## Какой файл использовать
 
 Для первой установки со стока / аварийного восстановления:
@@ -97,6 +103,31 @@ mediatek/mt7663pr2h.bin not found, switching to mediatek/mt7663pr2h_rebb.bin
 ```
 
 для этой сборки ожидаема и сама по себе не означает неисправность 5 ГГц.
+
+## Скриншоты работающей системы
+
+Скриншоты сделаны на том же экземпляре после установки OpenWrt 25.12.5. Индивидуальные сетевые данные скрыты.
+
+| Сведения о системе | Оба Wi-Fi-диапазона |
+|---|---|
+| [![LuCI: модель, версия OpenWrt и состояние системы](docs/images/luci-overview.png)](docs/images/luci-overview.png) | [![LuCI: радио 2.4 и 5 ГГц](docs/images/luci-wireless.png)](docs/images/luci-wireless.png) |
+
+<details>
+<summary>Дополнительные скриншоты: интерфейсы, график Wi-Fi и анализ каналов</summary>
+
+### LAN и WAN
+
+[![LuCI: сетевые интерфейсы](docs/images/luci-interfaces.png)](docs/images/luci-interfaces.png)
+
+### График Wi-Fi
+
+[![LuCI: график Wi-Fi](docs/images/luci-wireless-graph.png)](docs/images/luci-wireless-graph.png)
+
+### Анализ каналов 5 ГГц
+
+[![LuCI: анализ каналов](docs/images/luci-channel-analysis.png)](docs/images/luci-channel-analysis.png)
+
+</details>
 
 ## Ограничения
 
