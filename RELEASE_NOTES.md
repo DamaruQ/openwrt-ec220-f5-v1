@@ -21,7 +21,7 @@ The inherited 10 MHz SPI setting was a major I/O bottleneck. Raising it to 40 MH
 
 ## Known limitations
 
-See `README.md` / `README_RU.md`.
+See `README.md` / `README_EN.md`.
 
 ## Disclaimer / support policy
 

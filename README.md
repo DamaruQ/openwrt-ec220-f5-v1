@@ -1,135 +1,115 @@
-# OpenWrt 25.12.5 for TP-Link EC220-F5 v1
+# OpenWrt 25.12.5 для TP-Link EC220-F5 v1
 
-Unofficial, hardware-validated OpenWrt build for **TP-Link EC220-F5 v1**.
+[English version](README_EN.md)
 
-This release was tested on a real EC220-F5 v1 through the full cycle:
+Неофициальная, **проверенная на реальном железе** сборка OpenWrt для **TP-Link EC220-F5 v1**.
 
-**TP-Link stock -> TFTP install -> OpenWrt -> native EC220 sysupgrade -> successful reboot**.
+Проверен полный цикл:
 
-## Important: use at your own risk
+**сток TP-Link -> установка по TFTP -> OpenWrt -> нативный sysupgrade EC220 -> успешная повторная загрузка**.
 
-This firmware was created **primarily for my own TP-Link EC220-F5 V1**, so that my particular router could run OpenWrt properly. On my unit, TFTP installation, LAN/WAN, 2.4/5 GHz Wi-Fi, 40 MHz SPI and a real follow-up `sysupgrade` were tested successfully.
+## Важно: используйте на свой страх и риск
 
-I **do not guarantee** that it will work on every EC220-F5 unit, another hardware revision, ISP-specific variant, or different component/BOM variant. Flashing is **entirely at your own risk**. You may lose configuration, render the router unbootable, or need TFTP recovery or an external programmer.
+Эта прошивка сделана **в первую очередь для моего собственного TP-Link EC220-F5 V1**, чтобы мой конкретный роутер нормально работал на OpenWrt. На моём экземпляре проверены TFTP-установка, LAN/WAN, 2.4/5 ГГц Wi-Fi, SPI 40 МГц и последующий `sysupgrade`.
 
-This project is provided **AS IS, without warranty of any kind**. I accept no responsibility for damaged hardware, lost configuration/data, or any other consequences resulting from use of these files.
+При этом я **не гарантирую**, что прошивка будет работать на любом другом экземпляре EC220-F5, другой аппаратной ревизии, операторской версии или варианте комплектующих. Любая прошивка выполняется **полностью на ваш страх и риск**. Возможны потеря настроек, неработоспособность устройства и необходимость восстановления через TFTP или программатор.
 
-This is not a commercial product and not a supported OpenWrt fork. I built this port for myself and **do not promise future support, bug fixes, new releases, updates, or adaptation for other hardware revisions/models**. If it does not work on your unit, do not assume that I will investigate or maintain it.
+Проект публикуется **как есть (AS IS), без каких-либо гарантий**. Я не беру на себя ответственность за повреждение роутера, потерю конфигурации, данных или любые другие последствия использования этих файлов.
 
-Before flashing, keep a stock recovery image and, if possible, back up the device-specific partitions (`boot`, `config`, `rom`, `romfile`, `radio`).
+Это не коммерческий продукт и не поддерживаемый форк OpenWrt. Я делал этот порт для себя и **не обещаю дальнейшую поддержку, исправление багов, новые версии, обновления или адаптацию под другие ревизии/модели**. Если что-то не работает на вашем устройстве, не следует рассчитывать, что я буду это дорабатывать.
 
-## Tested hardware
+Перед прошивкой обязательно сохраните штатный recovery и, по возможности, индивидуальные разделы устройства (`boot`, `config`, `rom`, `romfile`, `radio`).
 
-- Model: TP-Link EC220-F5
-- Hardware version on label: **Version 1.0**
-- PCB marking: **2050501467**
-- SoC: MediaTek MT7628AN
-- RAM: 64 MiB
-- SPI NOR: 8 MiB, tested chip **EON EN25QH64**
-- 2.4 GHz: MT7628 integrated radio
-- 5 GHz: MT7663 over PCIe / mt7615e driver
-- Ethernet: 100 Mbit/s
+## На каком железе проверено
 
-**Do not flash this on EC220-F5 v2, EC220-G5, Archer C50, or any other model/revision.** Other V1 BOM/flash variants have not been tested.
+- TP-Link EC220-F5
+- на наклейке: **Version 1.0**
+- маркировка PCB: **2050501467**
+- MediaTek MT7628AN
+- 64 MiB RAM
+- 8 MiB SPI NOR, на тестовом экземпляре **EON EN25QH64**
+- 2.4 ГГц: встроенный MT7628
+- 5 ГГц: MT7663 по PCIe / драйвер mt7615e
+- Ethernet 100 Мбит/с
 
-## Release files
+**Не шить в EC220-F5 v2, EC220-G5, Archer C50 и другие модели/ревизии.** Другие варианты комплектующих внутри V1 отдельно не проверялись.
 
-### Initial installation / recovery
+## Какой файл использовать
+
+Для первой установки со стока / аварийного восстановления:
 
 `firmware/tp_recovery_EC220-F5_V1_OpenWrt_25.12.5_FINAL.bin`
 
-- Size: `8126464` bytes (`0x7C0000`)
-- SHA256: `aba00e64fa0a668ccd4e2ef80d17916deb043cd3b3af50113e1cd84b9b926076`
+SHA256: `aba00e64fa0a668ccd4e2ef80d17916deb043cd3b3af50113e1cd84b9b926076`
 
-Use this file only through the EC220-F5 TFTP recovery path. Rename it to **`tp_recovery.bin`** before starting the TFTP server.
+Перед TFTP переименовать в **`tp_recovery.bin`**.
 
-### Normal OpenWrt upgrades
+Для дальнейших обновлений уже установленной этой прошивки:
 
 `firmware/openwrt-25.12.5-ramips-mt76x8-tplink_ec220-f5-v1-squashfs-sysupgrade.bin`
 
-- Size: `7995643` bytes
-- SHA256: `7dd3179b39caa5ef6d3a56e106aecfdfe27bb46a2546bfaa4f07ee7373d38682`
+SHA256: `7dd3179b39caa5ef6d3a56e106aecfdfe27bb46a2546bfaa4f07ee7373d38682`
 
-Use this **only after this native EC220-F5 build is already installed**.
+## Первая установка по TFTP
 
-## Install from stock with TFTP
+1. Сначала подготовьте стоковый recovery. См. `RECOVERY.md`.
+2. Подключите ПК кабелем напрямую к LAN-порту роутера.
+3. Задайте Ethernet-адаптеру ПК адрес `192.168.0.66/24`, маска `255.255.255.0`.
+4. Положите OpenWrt TFTP-образ в корень TFTP-сервера под именем `tp_recovery.bin`.
+5. Запустите TFTP-сервер на `192.168.0.66`.
+6. Выключите питание роутера.
+7. Зажмите **RESET**, включите питание, продолжая держать RESET; отпустите после начала TFTP-передачи.
+8. В логе TFTP должен появиться запрос от **`192.168.0.2`** файла **`tp_recovery.bin`**.
+9. Не выключайте питание. Холодная загрузка медленная; спокойно дайте роутеру несколько минут.
+10. OpenWrt будет доступен на `192.168.1.1`.
 
-1. Keep a stock recovery image before doing anything else. See `RECOVERY.md`.
-2. Connect a PC directly to a LAN port on the router.
-3. Set the PC Ethernet adapter to `192.168.0.66/24` (`255.255.255.0`). Gateway and DNS are not required for TFTP.
-4. Rename the OpenWrt TFTP image to `tp_recovery.bin` and place it in the TFTP server root.
-5. Start the TFTP server on `192.168.0.66`.
-6. Power the router off.
-7. Hold **RESET**, power the router on while holding RESET, and release when the TFTP transfer starts.
-8. The TFTP log should show a request from **`192.168.0.2`** for **`tp_recovery.bin`**.
-9. Do not interrupt power. First boot can take around two minutes; give it several minutes before assuming failure.
-10. OpenWrt will be available at `192.168.1.1`.
+## Обновление через sysupgrade
 
-## Upgrade from this build
-
-CLI upgrade is hardware-tested.
+CLI-путь реально проверен на устройстве:
 
 ```sh
 sysupgrade -T /tmp/openwrt-25.12.5-ramips-mt76x8-tplink_ec220-f5-v1-squashfs-sysupgrade.bin
 sysupgrade -v /tmp/openwrt-25.12.5-ramips-mt76x8-tplink_ec220-f5-v1-squashfs-sysupgrade.bin
 ```
 
-The compatibility check must succeed without `-F`.
+Проверка должна проходить **без `-F`**.
 
-**Never use `sysupgrade -F`. Never flash an official Archer C50 image on EC220-F5.**
+**Не использовать `sysupgrade -F`. Не шить официальные образы Archer C50.**
 
-## What is validated
+## Что подтверждено
 
-- native `board_name`: `tplink,ec220-f5-v1`
-- model string: `TP-Link EC220-F5 v1`
-- OpenWrt 25.12.5 / kernel 6.12.94
-- 40 MHz SPI NOR clock
-- native 8 MiB flash layout
-- LAN and WAN
-- 2.4 GHz and 5 GHz PHY initialization
-- MT7663 firmware loading through the OpenWrt fallback firmware
-- TFTP installation/recovery path
-- `sysupgrade -T` compatibility validation
-- real sysupgrade with successful reboot and preserved native board identity
+- `board_name = tplink,ec220-f5-v1`
+- модель `TP-Link EC220-F5 v1`
+- OpenWrt 25.12.5, kernel 6.12.94
+- SPI NOR 40 МГц
+- правильная 8 MiB разметка
+- LAN и WAN
+- оба Wi-Fi PHY
+- загрузка firmware MT7663
+- TFTP install/recovery
+- `sysupgrade -T`
+- настоящий sysupgrade с успешной загрузкой после прошивки
 
-A log line similar to the following is expected for the 5 GHz radio and is not by itself an error:
+Строка вида:
 
 ```text
 mediatek/mt7663pr2h.bin not found, switching to mediatek/mt7663pr2h_rebb.bin
 ```
 
-## Important limitations
+для этой сборки ожидаема и сама по себе не означает неисправность 5 ГГц.
 
-- This is **not an official OpenWrt-supported device** yet.
-- Attended Sysupgrade / Firmware Selector must not be used for device-specific upgrades until the device is upstreamed.
-- Full long-term testing across multiple EC220-F5 V1 hardware samples has not been done.
-- The published release uses a validated EC220-specific image repack based on OpenWrt 25.12.5. It is not yet generated by a fully upstream-native OpenWrt image profile. See `SOURCE.md`.
-- Cold boot is relatively slow (roughly around two minutes on the tested unit).
+## Ограничения
 
-## Flash layout
+- Устройство пока **не поддерживается официальным OpenWrt**.
+- Attended Sysupgrade / Firmware Selector для него использовать нельзя, пока профиль не принят upstream.
+- Длительное тестирование на нескольких экземплярах EC220-F5 V1 ещё не проводилось.
+- Релизный бинарник сделан проверенным EC220-специфичным repack-процессом на базе OpenWrt 25.12.5; полностью upstream-native профиль сборки ещё не оформлен. Подробности в `SOURCE.md`.
+- Холодный старт на тестовом экземпляре занимает примерно около двух минут.
 
-| Partition | Offset | Size |
-|---|---:|---:|
-| boot | `0x000000` | `0x020000` |
-| kernel | `0x020000` | `0x210000` |
-| rootfs | `0x230000` | `0x590000` |
-| config | `0x7C0000` | `0x010000` |
-| rom | `0x7D0000` | `0x010000` |
-| romfile | `0x7E0000` | `0x010000` |
-| radio | `0x7F0000` | `0x010000` |
-
-The OpenWrt install/upgrade images do not overwrite the bootloader or the per-device `config`, `rom`, `romfile`, and `radio` partitions.
-
-## Verify the files
-
-Run:
+## Проверка файлов
 
 ```sh
 python3 tools/verify_release.py
 ```
 
-or verify the hashes in `firmware/SHA256SUMS`.
-
-## Source / development notes
-
-See `SOURCE.md` and `device/`.
+Либо сверить `firmware/SHA256SUMS`.
