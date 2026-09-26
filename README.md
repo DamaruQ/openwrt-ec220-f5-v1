@@ -2,6 +2,8 @@
 
 [English version](README_EN.md)
 
+**Документация:** [восстановление](RECOVERY.md) · [железо](HARDWARE.md) · [исходники и сборка](SOURCE.md) · [заметки о релизе](RELEASE_NOTES.md) · [предупреждение](DISCLAIMER.md)
+
 Неофициальная, **проверенная на реальном железе** сборка OpenWrt для **TP-Link EC220-F5 v1**.
 
 Проверен полный цикл:
@@ -44,7 +46,7 @@
 
 Для первой установки со стока / аварийного восстановления:
 
-`firmware/tp_recovery_EC220-F5_V1_OpenWrt_25.12.5_FINAL.bin`
+[`firmware/tp_recovery_EC220-F5_V1_OpenWrt_25.12.5_FINAL.bin`](firmware/tp_recovery_EC220-F5_V1_OpenWrt_25.12.5_FINAL.bin)
 
 SHA256: `aba00e64fa0a668ccd4e2ef80d17916deb043cd3b3af50113e1cd84b9b926076`
 
@@ -52,13 +54,13 @@ SHA256: `aba00e64fa0a668ccd4e2ef80d17916deb043cd3b3af50113e1cd84b9b926076`
 
 Для дальнейших обновлений уже установленной этой прошивки:
 
-`firmware/openwrt-25.12.5-ramips-mt76x8-tplink_ec220-f5-v1-squashfs-sysupgrade.bin`
+[`firmware/openwrt-25.12.5-ramips-mt76x8-tplink_ec220-f5-v1-squashfs-sysupgrade.bin`](firmware/openwrt-25.12.5-ramips-mt76x8-tplink_ec220-f5-v1-squashfs-sysupgrade.bin)
 
 SHA256: `7dd3179b39caa5ef6d3a56e106aecfdfe27bb46a2546bfaa4f07ee7373d38682`
 
 ## Первая установка по TFTP
 
-1. Сначала подготовьте стоковый recovery. См. `RECOVERY.md`.
+1. Сначала подготовьте стоковый recovery. См. [`RECOVERY.md`](RECOVERY.md).
 2. Подключите ПК кабелем напрямую к LAN-порту роутера.
 3. Задайте Ethernet-адаптеру ПК адрес `192.168.0.66/24`, маска `255.255.255.0`.
 4. Положите OpenWrt TFTP-образ в корень TFTP-сервера под именем `tp_recovery.bin`.
@@ -143,4 +145,8 @@ mediatek/mt7663pr2h.bin not found, switching to mediatek/mt7663pr2h_rebb.bin
 python3 tools/verify_release.py
 ```
 
-Либо сверить `firmware/SHA256SUMS`.
+Скрипт проверки: [`tools/verify_release.py`](tools/verify_release.py).
+
+Либо сверить [`firmware/SHA256SUMS`](firmware/SHA256SUMS).
+
+Технические сведения о сборке и исходных изменениях приведены в [`SOURCE.md`](SOURCE.md).

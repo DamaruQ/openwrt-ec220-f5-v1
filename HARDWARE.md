@@ -1,5 +1,7 @@
 # TP-Link EC220-F5 v1 hardware notes
 
+[README](README.md) · [Recovery](RECOVERY.md) · [Source](SOURCE.md) · [Release notes](RELEASE_NOTES.md) · [Disclaimer](DISCLAIMER.md)
+
 ## Tested unit
 
 - Label: EC220-F5, Version 1.0

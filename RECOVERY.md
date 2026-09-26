@@ -1,5 +1,7 @@
 # Recovery / return to stock
 
+[README](README.md) · [Hardware](HARDWARE.md) · [Source](SOURCE.md) · [Release notes](RELEASE_NOTES.md) · [Disclaimer](DISCLAIMER.md)
+
 The EC220-F5 v1 bootloader TFTP recovery path remained functional throughout testing.
 
 ## TFTP parameters validated on the test unit
@@ -25,7 +27,7 @@ The tested result has:
 - size: `8126464` bytes (`0x7C0000`)
 - SHA256: `d95860cda001c4dbc483800dfb07c8c3e3ff939642237b3b57d88c3181fa8629`
 
-Use `tools/make_stock_recovery.py` to create it from a legally obtained OEM firmware file.
+Use [`tools/make_stock_recovery.py`](tools/make_stock_recovery.py) to create it from a legally obtained OEM firmware file.
 
 If the resulting checksum differs, do not assume it is equivalent to the tested stock recovery image.
 

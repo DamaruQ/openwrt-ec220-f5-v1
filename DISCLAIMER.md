@@ -1,5 +1,6 @@
 # Disclaimer / Предупреждение
 
+[README](README.md) · [Recovery](RECOVERY.md) · [Hardware](HARDWARE.md) · [Source](SOURCE.md) · [Release notes](RELEASE_NOTES.md)
 
 Эта прошивка сделана **в первую очередь для моего собственного TP-Link EC220-F5 V1**, чтобы мой конкретный роутер нормально работал на OpenWrt. На моём экземпляре проверены TFTP-установка, LAN/WAN, 2.4/5 ГГц Wi-Fi, SPI 40 МГц и последующий `sysupgrade`.
 

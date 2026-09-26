@@ -2,6 +2,8 @@
 
 [Русская версия](README.md)
 
+**Documentation:** [recovery](RECOVERY.md) · [hardware](HARDWARE.md) · [source and build notes](SOURCE.md) · [release notes](RELEASE_NOTES.md) · [disclaimer](DISCLAIMER.md)
+
 Unofficial, hardware-validated OpenWrt build for **TP-Link EC220-F5 v1**.
 
 This release was tested on a real EC220-F5 v1 through the full cycle:
@@ -44,7 +46,7 @@ Before flashing, keep a stock recovery image and, if possible, back up the devic
 
 ### Initial installation / recovery
 
-`firmware/tp_recovery_EC220-F5_V1_OpenWrt_25.12.5_FINAL.bin`
+[`firmware/tp_recovery_EC220-F5_V1_OpenWrt_25.12.5_FINAL.bin`](firmware/tp_recovery_EC220-F5_V1_OpenWrt_25.12.5_FINAL.bin)
 
 - Size: `8126464` bytes (`0x7C0000`)
 - SHA256: `aba00e64fa0a668ccd4e2ef80d17916deb043cd3b3af50113e1cd84b9b926076`
@@ -53,7 +55,7 @@ Use this file only through the EC220-F5 TFTP recovery path. Rename it to **`tp_r
 
 ### Normal OpenWrt upgrades
 
-`firmware/openwrt-25.12.5-ramips-mt76x8-tplink_ec220-f5-v1-squashfs-sysupgrade.bin`
+[`firmware/openwrt-25.12.5-ramips-mt76x8-tplink_ec220-f5-v1-squashfs-sysupgrade.bin`](firmware/openwrt-25.12.5-ramips-mt76x8-tplink_ec220-f5-v1-squashfs-sysupgrade.bin)
 
 - Size: `7995643` bytes
 - SHA256: `7dd3179b39caa5ef6d3a56e106aecfdfe27bb46a2546bfaa4f07ee7373d38682`
@@ -62,7 +64,7 @@ Use this **only after this native EC220-F5 build is already installed**.
 
 ## Install from stock with TFTP
 
-1. Keep a stock recovery image before doing anything else. See `RECOVERY.md`.
+1. Keep a stock recovery image before doing anything else. See [`RECOVERY.md`](RECOVERY.md).
 2. Connect a PC directly to a LAN port on the router.
 3. Set the PC Ethernet adapter to `192.168.0.66/24` (`255.255.255.0`). Gateway and DNS are not required for TFTP.
 4. Rename the OpenWrt TFTP image to `tp_recovery.bin` and place it in the TFTP server root.
@@ -161,8 +163,10 @@ Run:
 python3 tools/verify_release.py
 ```
 
-or verify the hashes in `firmware/SHA256SUMS`.
+Verification script: [`tools/verify_release.py`](tools/verify_release.py).
+
+Alternatively, verify the hashes in [`firmware/SHA256SUMS`](firmware/SHA256SUMS).
 
 ## Source / development notes
 
-See `SOURCE.md` and `device/`.
+See [`SOURCE.md`](SOURCE.md) and the [`device/`](device/) directory.

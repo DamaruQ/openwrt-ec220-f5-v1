@@ -1,5 +1,7 @@
 # Source and build notes
 
+[README](README.md) · [Recovery](RECOVERY.md) · [Hardware](HARDWARE.md) · [Release notes](RELEASE_NOTES.md) · [Disclaimer](DISCLAIMER.md)
+
 ## Base
 
 - OpenWrt 25.12.5
@@ -9,8 +11,8 @@
 
 Official OpenWrt release source/tag:
 
-- https://github.com/openwrt/openwrt/releases/tag/v25.12.5
-- https://downloads.openwrt.org/releases/25.12.5/targets/ramips/mt76x8/
+- [OpenWrt v25.12.5 source tag](https://github.com/openwrt/openwrt/releases/tag/v25.12.5)
+- [Official ramips/mt76x8 release files](https://downloads.openwrt.org/releases/25.12.5/targets/ramips/mt76x8/)
 
 ## Current release build status
 
@@ -29,7 +31,7 @@ The final binary was then validated on the router through an actual sysupgrade c
 
 ## Device tree source
 
-`device/mt7628an_tplink_ec220-f5-v1.dts` is a clean DTS representation of the DT embedded in the tested FINAL firmware.
+[`device/mt7628an_tplink_ec220-f5-v1.dts`](device/mt7628an_tplink_ec220-f5-v1.dts) is a clean DTS representation of the DT embedded in the tested FINAL firmware.
 
 During release preparation it was compiled with the OpenWrt 25.12.5 kernel-tree `dtc`; the decompiled result was semantically/diff identical to the DTB extracted from the validated FINAL kernel.
 
@@ -37,13 +39,13 @@ During release preparation it was compiled with the OpenWrt 25.12.5 kernel-tree 
 
 Exact unified diffs against OpenWrt 25.12.5 ImageBuilder sources are in:
 
-- `device/rootfs-diff/01_leds.patch`
-- `device/rootfs-diff/02_network.patch`
-- `device/rootfs-diff/platform.sh.patch`
+- [`device/rootfs-diff/01_leds.patch`](device/rootfs-diff/01_leds.patch)
+- [`device/rootfs-diff/02_network.patch`](device/rootfs-diff/02_network.patch)
+- [`device/rootfs-diff/platform.sh.patch`](device/rootfs-diff/platform.sh.patch)
 
 ## Reference build implementation
 
-`reference/FINAL_BUILD.py` is the reference script used for the validated FINAL image assembly. It is included for auditability and accepts input locations through these environment variables:
+[`reference/FINAL_BUILD.py`](reference/FINAL_BUILD.py) is the reference script used for the validated FINAL image assembly. It is included for auditability and accepts input locations through these environment variables:
 
 - `EC220_BUILD_WORK`
 - `EC220_RC2`

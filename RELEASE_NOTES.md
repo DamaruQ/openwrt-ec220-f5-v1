@@ -1,5 +1,7 @@
 # v1.0.1 — OpenWrt 25.12.5 FINAL
 
+[README](README.md) · [Recovery](RECOVERY.md) · [Hardware](HARDWARE.md) · [Source](SOURCE.md) · [Disclaimer](DISCLAIMER.md)
+
 First hardware-validated public release for TP-Link EC220-F5 v1.
 
 ## Highlights
@@ -21,7 +23,7 @@ The inherited 10 MHz SPI setting was a major I/O bottleneck. Raising it to 40 MH
 
 ## Known limitations
 
-See `README.md` / `README_EN.md`.
+See the [Russian README](README.md) or the [English README](README_EN.md).
 
 ## Disclaimer / support policy
 
