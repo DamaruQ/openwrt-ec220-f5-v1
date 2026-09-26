@@ -64,10 +64,12 @@ Use this **only after this native EC220-F5 build is already installed**.
 
 ## Install from stock with TFTP
 
-1. Keep a stock recovery image before doing anything else. See [`RECOVERY.md`](RECOVERY.md).
+These steps flash **only the OpenWrt image**. The stock recovery image is merely a backup prepared in advance for a possible rollback; do not flash it during a normal OpenWrt installation.
+
+1. It is recommended to prepare and keep a stock recovery image on the PC for an emergency return to the factory firmware. Do not use it during these steps. See [`RECOVERY.md`](RECOVERY.md).
 2. Connect a PC directly to a LAN port on the router.
 3. Set the PC Ethernet adapter to `192.168.0.66/24` (`255.255.255.0`). Gateway and DNS are not required for TFTP.
-4. Rename the OpenWrt TFTP image to `tp_recovery.bin` and place it in the TFTP server root.
+4. Rename **the OpenWrt TFTP image itself** to `tp_recovery.bin` and place it in the TFTP server root.
 5. Start the TFTP server on `192.168.0.66`.
 6. Power the router off.
 7. Hold **RESET**, power the router on while holding RESET, and release when the TFTP transfer starts.

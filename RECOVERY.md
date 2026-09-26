@@ -4,6 +4,11 @@
 
 The EC220-F5 v1 bootloader TFTP recovery path remained functional throughout testing.
 
+> [!IMPORTANT]
+> The stock recovery image described here is a rollback safety copy. **Do not flash it as part of the normal OpenWrt installation.** Prepare it in advance and keep it on the PC. Use it through TFTP only if you deliberately want to return to the TP-Link factory firmware or recover after a failed OpenWrt installation.
+>
+> Стоковый recovery из этого документа — это страховочная копия для отката. **При обычной установке OpenWrt его прошивать не нужно.** Подготовьте его заранее и храните на ПК. Используйте его через TFTP только для намеренного возврата на заводскую прошивку TP-Link или восстановления после неудачной установки OpenWrt.
+
 ## TFTP parameters validated on the test unit
 
 - PC / TFTP server: `192.168.0.66`
