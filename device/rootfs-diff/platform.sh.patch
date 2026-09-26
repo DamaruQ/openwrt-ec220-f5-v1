@@ -1,0 +1,76 @@
+--- a/target/linux/ramips/mt76x8/base-files/lib/upgrade/platform.sh
++++ b/target/linux/ramips/mt76x8/base-files/lib/upgrade/platform.sh
+@@ -1,6 +1,5 @@
+-#
+-# Copyright (C) 2010 OpenWrt.org
+-#
++# SPDX-License-Identifier: GPL-2.0-only
++# TP-Link EC220-F5 v1 native OpenWrt support + stock ramips/mt76x8 cases
+ 
+ PART_NAME=firmware
+ REQUIRE_IMAGE_METADATA=1
+@@ -9,11 +8,36 @@
+ RAMFS_COPY_DATA='/etc/fw_env.config /var/lock/fw_printenv.lock'
+ 
+ platform_check_image() {
++	local board="$(board_name)"
++
++	case "$board" in
++	tplink,ec220-f5-v1)
++		local magic rootmagic size
++		magic="$(dd if="$1" bs=1 count=4 2>/dev/null | hexdump -v -e '1/1 "%02x"')"
++		[ "$magic" = "03000003" ] || {
++			echo "Invalid EC220-F5 image header magic: $magic" >&2
++			return 1
++		}
++
++		rootmagic="$(dd if="$1" bs=65536 skip=33 count=1 2>/dev/null | dd bs=1 count=4 2>/dev/null | hexdump -v -e '1/1 "%02x"')"
++		[ "$rootmagic" = "68737173" ] || {
++			echo "Invalid EC220-F5 rootfs magic: $rootmagic" >&2
++			return 1
++		}
++
++		size="$(wc -c < "$1")"
++		[ "$size" -ge 7995392 ] || {
++			echo "EC220-F5 image is too small: $size bytes" >&2
++			return 1
++		}
++		;;
++	esac
++
+ 	return 0
+ }
+ 
+ platform_do_upgrade() {
+-	local board=$(board_name)
++	local board="$(board_name)"
+ 
+ 	case "$board" in
+ 	alfa-network,awusfree1)
+@@ -34,6 +58,26 @@
+ 		MTD_ARGS="-t romfile"
+ 		default_do_upgrade "$1"
+ 		;;
++	tplink,ec220-f5-v1)
++		# Native EC220 flash layout:
++		#   kernel 0x020000..0x22ffff = 0x210000 = 33 x 64 KiB
++		#   rootfs 0x230000..0x7bffff = 0x590000 = 89 x 64 KiB
++		# The sysupgrade payload is exactly the native 0x7a0000 firmware region
++		# followed by normal OpenWrt fwtool metadata. Read exact block counts so
++		# metadata is never written to flash.
++		sync
++		echo 3 > /proc/sys/vm/drop_caches
++
++		get_image_dd "$1" bs=65536 count=33 | mtd write - kernel || exit 1
++
++		if [ -n "$UPGRADE_BACKUP" ]; then
++			get_image_dd "$1" bs=65536 skip=33 count=89 | \
++				mtd -j "$UPGRADE_BACKUP" write - rootfs || exit 1
++		else
++			get_image_dd "$1" bs=65536 skip=33 count=89 | \
++				mtd write - rootfs || exit 1
++		fi
++		;;
+ 	*)
+ 		default_do_upgrade "$1"
+ 		;;

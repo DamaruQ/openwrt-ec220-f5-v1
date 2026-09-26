@@ -1,0 +1,24 @@
+EC220-F5 v1 OpenWrt 25.12.5 FINAL DTB AUDIT
+
+Root identity:
+  model = "TP-Link EC220-F5 v1"
+  compatible = "tplink,ec220-f5-v1", "mediatek,mt7628an-soc"
+  board_name expected = tplink,ec220-f5-v1
+  spi-max-frequency = 40000000 Hz
+
+Fixed flash partitions:
+  partition@0          label=boot     start=0x000000 size=0x020000 end=0x020000
+  partition@20000      label=kernel   start=0x020000 size=0x210000 end=0x230000
+  partition@230000     label=rootfs   start=0x230000 size=0x590000 end=0x7C0000
+  partition@7c0000     label=config   start=0x7C0000 size=0x010000 end=0x7D0000
+  partition@7d0000     label=rom      start=0x7D0000 size=0x010000 end=0x7E0000
+  partition@7e0000     label=romfile  start=0x7E0000 size=0x010000 end=0x7F0000
+  partition@7f0000     label=radio    start=0x7F0000 size=0x010000 end=0x800000
+
+NVMEM:
+  MAC rom+0xF100 size=6
+  2.4GHz radio+0x0000 size=0x400
+  5GHz radio+0x8000 size=0x4DA8
+
+RC2 appended DTB: offset 0x6AB980, size 0x275A
+FINAL appended DTB: offset 0x6AB980, size 0x272A

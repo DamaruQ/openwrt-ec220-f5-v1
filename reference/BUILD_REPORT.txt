@@ -1,0 +1,73 @@
+TP-Link EC220-F5 v1 — OpenWrt 25.12.5 FINAL native build
+
+STATUS
+  Native board identity: tplink,ec220-f5-v1
+  OpenWrt: 25.12.5 r33051-f5dae5ece4, ramips/mt76x8
+  SPI NOR: 40,000,000 Hz (validated on RC2 hardware tests)
+  Kernel/DT hardware state is inherited from the tested RC2 and only board identity/model are changed.
+  Rootfs is the tested 25.12.5 RC2 rootfs with native EC220 board.d + sysupgrade support added.
+
+INPUTS
+  RC2 TFTP SHA256: 74fde4de752b8f569a57b53f79c9c3fea936e88082db990ae1cf3bc983ea76a7
+  Stock TFTP SHA256: d95860cda001c4dbc483800dfb07c8c3e3ff939642237b3b57d88c3181fa8629
+  Final rootfs SquashFS SHA256: 5d4105fbff5b2bc261a36eef8d5f64c34a890ab25d0acb836cbd66de9e23de52
+  Final rootfs bytes_used: 4328128 (0x420AC0)
+
+NATIVE IDENTITY
+  model: TP-Link EC220-F5 v1
+  compatible: tplink,ec220-f5-v1; mediatek,mt7628an-soc
+  expected board_name: tplink,ec220-f5-v1
+
+FLASH LAYOUT
+  boot    0x000000..0x01FFFF  size 0x020000 read-only
+  kernel  0x020000..0x22FFFF  size 0x210000
+  rootfs  0x230000..0x7BFFFF  size 0x590000
+  config  0x7C0000..0x7CFFFF  size 0x010000
+  rom     0x7D0000..0x7DFFFF  size 0x010000
+  romfile 0x7E0000..0x7EFFFF  size 0x010000
+  radio   0x7F0000..0x7FFFFF  size 0x010000
+
+NVMEM
+  MAC: rom + 0xF100, size 6
+  2.4 GHz EEPROM: radio + 0x0000, size 0x400
+  5 GHz EEPROM: radio + 0x8000, size 0x4DA8
+
+KERNEL
+  RC2 compressed kernel: 2141612 bytes SHA256 8f362db0608f979dbdf1172dec076fe46c3eaabdbb8011157e69ce9df4abeee9
+  FINAL compressed kernel: 2141572 bytes SHA256 18a79c1b5dd00eed96780f10cca49ae8f3f10c9279c90514dad2335589078e24
+  LZMA properties: 5d00008000 (dict 8 MiB, lc=3, lp=0, pb=2)
+  compressed-kernel margin before fixed rootfs: 0x507C (20604 bytes)
+  appended DTB offset: 0x6AB980
+
+ROOTFS
+  SquashFS bytes_used: 4328128 (0x420AC0)
+  rootfs partition spare before JFFS2 overlay use: 1504576 bytes (~1.43 MiB)
+  JFFS EOF markers, firmware-relative: 0x631000, 0x640000
+  Native userspace additions: board.d LAN/WAN + LEDs, EC220 platform sysupgrade, ASU auto-check suppression if package exists.
+
+OUTPUTS
+  TFTP recovery/install:
+    tp_recovery_EC220-F5_V1_OpenWrt_25.12.5_FINAL.bin
+    size 8126464 (0x7C0000)
+    SHA256 aba00e64fa0a668ccd4e2ef80d17916deb043cd3b3af50113e1cd84b9b926076
+  Native sysupgrade (use only after FINAL/native EC220 is already booted):
+    openwrt-25.12.5-ramips-mt76x8-tplink_ec220-f5-v1-squashfs-sysupgrade.bin
+    size 7995643
+    SHA256 7dd3179b39caa5ef6d3a56e106aecfdfe27bb46a2546bfaa4f07ee7373d38682
+    fwtool supported_devices: tplink,ec220-f5-v1
+  Raw native firmware payload (build/recovery artifact; do not flash manually):
+    openwrt-25.12.5-ramips-mt76x8-tplink_ec220-f5-v1-squashfs-firmware.bin
+    size 7995392 (0x7A0000)
+    SHA256 d3dab25e98cbbb8bad0d9f0d42f8af0fafba786cd308e5a527ac2c1360e04c98
+
+UPGRADE DESIGN
+  Initial RC2 -> FINAL transition MUST use EC220 TFTP recovery, because RC2 reports board_name tplink,archer-c50-v6.
+  After FINAL boots, normal sysupgrade image validation matches tplink,ec220-f5-v1.
+  EC220 sysupgrade writes exactly 33 x 64KiB blocks to kernel and 89 x 64KiB blocks to rootfs; fwtool metadata is outside those blocks and is never written.
+  With config preservation, mtd -j injects sysupgrade.tgz at the 64KiB-aligned JFFS EOF marker in rootfs.
+
+SAFETY BOUNDARIES
+  TFTP image is exactly 0x7C0000 = 0x20000 ignored prefix + 0x7A0000 firmware payload.
+  Known EC220 U-Boot recovery command writes only flash 0x020000..0x7BFFFF.
+  U-Boot 0x000000..0x01FFFF and per-device config/rom/romfile/radio 0x7C0000..0x7FFFFF are not contained in the TFTP write payload.
+  Stock recovery remains the fallback.

@@ -1,0 +1,12 @@
+--- a/target/linux/ramips/mt76x8/base-files/etc/board.d/01_leds
++++ b/target/linux/ramips/mt76x8/base-files/etc/board.d/01_leds
+@@ -106,7 +106,8 @@
+ 	;;
+ tplink,archer-c50-v3|\
+ tplink,archer-c50-v4|\
+-tplink,archer-c50-v6)
++tplink,archer-c50-v6|\
++tplink,ec220-f5-v1)
+ 	ucidef_set_led_switch "lan" "lan" "green:lan" "switch0" "0x1e"
+ 	ucidef_set_led_switch "wan" "wan" "green:wan" "switch0" "0x01"
+ 	ucidef_set_led_wlan "wlan2g" "wlan2g" "green:wlan2g" "phy0tpt"
